@@ -9,6 +9,11 @@ export default class UserRepository{
     async findById(id: number){
         return await User.findByPk(id, {attributes: ['id', 'email', 'roleId']})
     }
+    async findByEmail(email: string){
+        return await User.findOne({ where: { email } });
+    }
+
+    // debe ir en el auth
     async create(user: Partial<User>){
         return await User.create(user)
     }

@@ -23,6 +23,16 @@ export default class UserService {
         }
     }
 
+    async getByEmail(email: string) {
+        try {
+            return await this.UserRepository.findByEmail(email);
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
+
+
+    // debe ir en el auth
     async createUser(user: Partial<User>) {
         try {
             return await this.UserRepository.create(user)
@@ -45,5 +55,13 @@ export default class UserService {
         } catch (error: any) {
             throw new Error(error.message);
         }
+    }
+
+    async checkUserCredentials(email:string, password: string){
+        const user = await this.UserRepository.findByEmail(email)
+        if(user &&  user.password === password){
+            return user;
+        }
+        throw new Error('Invalid credentials');
     }
 }

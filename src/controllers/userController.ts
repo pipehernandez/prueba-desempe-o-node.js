@@ -26,6 +26,8 @@ export default class UserController {
         }
     }
 
+
+    // debe ir en el auth
     static async createUser(req: Request, res: Response){
         try {
             const userService = container.resolve(UserService)
@@ -33,6 +35,7 @@ export default class UserController {
             res.status(201).json({ message: "User Created Succesfully"})
         } catch (error:any) {
             res.status(500).json({ message: error.message });
+            return;
         }
     }
 
